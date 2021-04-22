@@ -6,8 +6,11 @@ const express = require("express");
 const { getJobs } = require("./Services");
 
 const server = express();
-server.listen(3000, () => {
-  console.log("listening");
+
+const PORT = process.env.PORT ? process.env.PORT : 3000;
+
+server.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
 });
 
 // const jobs = [
@@ -22,9 +25,9 @@ server.get("/jobs", async (req, res) => {
   //validation
   if (tech === undefined) {
     res.status(400).send({ error: "need tech parameter" });
-  }else{
-  const jobs = await getJobs(tech);
-  res.send(jobs);
+  } else {
+    const jobs = await getJobs(tech);
+    res.send(jobs);
   }
 });
 
